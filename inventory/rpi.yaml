@@ -1,0 +1,4 @@
+all:
+    hosts:
+        master.rpi.map.apart:
+        worker[1:3].rpi.map.apart:
