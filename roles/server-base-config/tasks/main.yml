@@ -1,0 +1,15 @@
+- name: Set sshd_config values
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: "^{{ item.name }} "
+    line: "{{ item.name }} {{ item.value }}"
+  become: yes
+  with_items: "{{ sshd_config_params }}"
+  register: sshd_config_change_result
+
+- name: Check sshd config is valid
+  command: sshd -T
+  become: yes
+  changed_when: false
+  when: "sshd_config_change_result | changed"
+  notify: Restart sshd

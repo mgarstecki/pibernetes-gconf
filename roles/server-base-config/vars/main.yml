@@ -1,0 +1,5 @@
+sshd_config_params:
+- name: PermitRootLogin
+  value: 'no'
+- name: PasswordAuthentication
+  value: 'no'
