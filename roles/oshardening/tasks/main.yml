@@ -1,7 +1,0 @@
-- lineinfile:
-    path: /etc/ssh/sshd_config
-    regexp: "^{{ item.name }} "
-    line: "{{ item.name }} {{ item.value }}"
-  become: yes
-  with_items: "{{ sshd_config_params }}"
-  notify: Restart sshd
