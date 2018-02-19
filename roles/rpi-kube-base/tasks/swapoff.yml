@@ -1,0 +1,22 @@
+- name: Check if swap is active
+  command: cat /proc/swaps
+  register: proc_swap_contents
+  check_mode: no
+  changed_when: false
+
+- name: Turn swap off
+  command: dphys-swapfile swapoff
+  when: "proc_swap_contents.stdout_lines | length >= 2"
+  become: yes
+
+- name: Disable swap
+  command: dphys-swapfile uninstall
+  when: "proc_swap_contents.stdout_lines | length >= 2"
+  become: yes
+
+- name: Disable swap service
+  service:
+    name: dphys-swapfile
+    state: stopped
+    enabled: no
+  become: yes
