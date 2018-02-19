@@ -10,6 +10,5 @@
 - name: Check sshd config is valid
   command: sshd -T
   become: yes
-  changed_when: false
   when: "sshd_config_change_result | changed"
   notify: Restart sshd
