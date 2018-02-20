@@ -1,0 +1,23 @@
+- name: Add Docker repo GPG key
+  apt_key:
+    url: https://download.docker.com/linux/raspbian/gpg
+    state: present
+  become: yes
+
+- name: Add Docker repository
+  apt_repository:
+    repo: deb [arch=armhf] https://download.docker.com/linux/raspbian stretch edge
+    state: present
+  become: yes
+
+- name: Install required packages
+  apt:
+    pkg: "{{ item }}"
+    install_recommends: no
+    state: present
+  become: yes
+  with_items:
+    - apt-transport-https
+    - ca-certificates
+    - curl
+    - docker-ce

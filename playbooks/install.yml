@@ -5,3 +5,7 @@
 - hosts: kube-nodes
   roles:
   - rpi-kube-base
+
+- hosts: kube-masters
+  roles:
+  - rpi-docker
